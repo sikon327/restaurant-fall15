@@ -18,4 +18,6 @@
   <%= @restaurant.phone %>
 </p>
 
+<%= link_to 'Edit', edit_restaurant_path(@restaurant) %> | <%= link_to 'Destroy', @restaurant, {method: :delete, data: { confirm: 'Are you sure?' }} %>
+<br>
 <%= link_to 'Back', restaurants_path %>
