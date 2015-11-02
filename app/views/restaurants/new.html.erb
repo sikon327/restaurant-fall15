@@ -1,0 +1,29 @@
+<h1>Add a new Restaurant!</h1>
+
+<%= form_for :restaurant, url: restaurants_path do |x| %>
+<p>
+	<%= x.label :name %><br>
+	<%= x.text_field :name %>
+</p>
+
+<p>
+	<%= x.label :description %><br>
+	<%= x.text_area :description %>
+</p>
+
+<p>
+	<%= x.label :address %><br>
+	<%= x.text_field :address %>
+</p>
+
+<p>
+	<%= x.label :phone %><br>
+	<%= x.text_field :phone %>
+</p>
+
+<p>
+	<%= x.submit %>
+</p>
+<% end %>
+
+<%= link_to 'Back', restaurants_path %>
