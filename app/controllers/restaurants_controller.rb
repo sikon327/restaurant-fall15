@@ -15,6 +15,7 @@ class RestaurantsController < ApplicationController
 	def create
 		@restaurant = Restaurant.new(restaurant_params)
 		if @restaurant.save
+			@restaurant.owner = current_owner.email
 			redirect_to @restaurant, notice: 'Restaurant was successfully created.'
 		else
 			render action: "new"
@@ -23,6 +24,9 @@ class RestaurantsController < ApplicationController
 
 	def edit
 		@restaurant = Restaurant.find(params[:id])
+		if @restaurant.owner != current_owner.email
+			redirect_to restaurants_path, notice: 'You do not have permission'
+		end
 	end
 
 	def update
@@ -36,7 +40,9 @@ class RestaurantsController < ApplicationController
 
 	def destroy
 		@restaurant = Restaurant.find(params[:id])
-		@restaurant.destroy
+		if @restaurant.:owner == current_owner
+			@restaurant.destroy
+		end
 		redirect_to restaurants_path
 	end
 
