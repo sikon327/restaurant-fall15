@@ -1,5 +1,5 @@
 class RestaurantsController < ApplicationController
-       before_action :authenticate_owner!, except:[:index, :show]
+	before_action :authenticate_owner!, :except => [:index, :show]
 	def index
 		@restaurants = Restaurant.all
 	end
@@ -9,13 +9,12 @@ class RestaurantsController < ApplicationController
 	end
 
 	def new
-		@restaurant = Restaurant.new
+		@restaurant = current_owner.restaurants.build
 	end
 
 	def create
-		@restaurant = Restaurant.new(restaurant_params)
+		@restaurant = current_owner.restaurants.build(restaurant_params)
 		if @restaurant.save
-			@restaurant.owner = current_owner.email
 			redirect_to @restaurant, notice: 'Restaurant was successfully created.'
 		else
 			render action: "new"
@@ -23,14 +22,11 @@ class RestaurantsController < ApplicationController
 	end
 
 	def edit
-		@restaurant = Restaurant.find(params[:id])
-		if @restaurant.owner != current_owner.email
-			redirect_to restaurants_path, notice: 'You do not have permission'
-		end
+		redirect_to restaurants_path, notice: 'Not found'
 	end
 
 	def update
-		@restaurant = Restaurant.find(params[:id])
+		@restaurant = current_owner.restaurants.find(params[:id])
 		if @restaurant.update_attributes(restaurant_params)
 			redirect_to @restaurant, notice: 'Restaurant was successfully updated.'
 		else
@@ -39,10 +35,8 @@ class RestaurantsController < ApplicationController
 	end
 
 	def destroy
-		@restaurant = Restaurant.find(params[:id])
-		if @restaurant.:owner == current_owner
-			@restaurant.destroy
-		end
+		@restaurant = current_owner.restaurants.find(params[:id])
+		@restaurant.destroy
 		redirect_to restaurants_path
 	end
 

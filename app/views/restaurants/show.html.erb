@@ -18,6 +18,8 @@
   <%= @restaurant.phone %>
 </p>
 
+<% if @restaurant.owner == current_owner %>
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> | <%= link_to 'Destroy', @restaurant, {method: :delete, data: { confirm: 'Are you sure?' }} %>
+<% end %>
 <br>
 <%= link_to 'Back', restaurants_path %>
