@@ -22,7 +22,7 @@ class RestaurantsController < ApplicationController
 	end
 
 	def edit
-		redirect_to restaurants_path, notice: 'Not found'
+		@restaurant = current_owner.restaurants.find(params[:id])
 	end
 
 	def update
