@@ -14,7 +14,20 @@ Rails.application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_deliveries = true
+
+  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings = {
+    :ssl => true,
+    :address => "smtp.gmail.com",
+    :port => 465,
+    :domain => "gmail.com",
+    :authentication => :login,
+    :user_name => "youremail@whatever.com",
+    :password => "password"
+  }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

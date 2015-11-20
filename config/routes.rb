@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :owners
+  resources :reservations
+  devise_for :owners, controllers: { registration: "owners/registrations" }
 	resources :restaurants
 
 	root "restaurants#index"
