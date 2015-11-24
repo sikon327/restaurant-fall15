@@ -18,9 +18,33 @@
   <%= @restaurant.phone %>
 </p>
 
-<% if @restaurant.owner == current_owner %>
+<% if current_user.patron? %>
+	<%= form_for [@restaurant, @restaurant.reservations.build] do |x| %>
+	<p>
+		<%= x.label :email %><br>
+		<%= x.text_field :email %>
+	</p>
+	<p>
+		<%= x.label :time %><br>
+		<%= x.datetime_local_field :time %>
+	</p>
+	<p>
+		<%= x.label :message %><br>
+		<%= x.text_field :message %>
+	</p>
+	<p>
+		<%= x.submit %>
+	</p>
+	<% end %>
+<% end %>
+
+<% if @restaurant.user == current_user %>
+<% for reservation in @restaurant.reservations %>
+	<%= reservation.email %><br>
+	<%= reservation.time %><br>
+	<%= reservation.message %><br>
+<% end %>
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> | <%= link_to 'Destroy', @restaurant, {method: :delete, data: { confirm: 'Are you sure?' }} %>
 <% end %>
-<br>
 <br>
 <%= link_to 'Back', restaurants_path %>

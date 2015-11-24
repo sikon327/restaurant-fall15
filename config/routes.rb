@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  resources :reservations
-  devise_for :owners, controllers: { registration: "owners/registrations" }
-	resources :restaurants
+  devise_for :users, controllers: { registration: "users/registrations" }
+	resources :restaurants do
+    resources :reservations
+  end
 
 	root "restaurants#index"
   # The priority is based upon order of creation: first created -> highest priority.
