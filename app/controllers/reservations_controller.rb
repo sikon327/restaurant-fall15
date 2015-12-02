@@ -1,11 +1,4 @@
 class ReservationsController < ApplicationController
-	def show
-		@reservation = Reservation.find(params[:id])
-	end
-
-	def new
-		@reservation = Reservation.new
-	end
 
 	def create
 		byebug
@@ -20,6 +13,10 @@ class ReservationsController < ApplicationController
 			render 'restaurants/show', status: 500
 		end
 	end
+
+	def destroy
+		Reservation.find(params[:id]).destroy
+		redirect_to restaurants_path
 
 	private
 	def reservation_params
