@@ -1,11 +1,9 @@
 class ReservationsController < ApplicationController
 
 	def create
-		byebug
 		@restaurant = Restaurant.find(params[:restaurant_id])
 		@reservation = Reservation.new(reservation_params)
 		@reservation.restaurant = @restaurant
-		byebug
 		if @reservation.save
 			redirect_to restaurants_path, notice: 'Successful reservation!'
 		else
@@ -14,9 +12,17 @@ class ReservationsController < ApplicationController
 		end
 	end
 
+	def show
+		@restaurant = Restaurant.find(params[:restaurant_id])
+		@reservation = Reservation.find(params[:id])
+	end
+
 	def destroy
-		Reservation.find(params[:id]).destroy
-		redirect_to restaurants_path
+		@restaurant = Restaurant.find(params[:restaurant_id])
+		@reservation = Reservation.find(params[:id])
+		@reservation.destroy
+		redirect_to @restaurant
+	end
 
 	private
 	def reservation_params

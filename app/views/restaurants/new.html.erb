@@ -21,6 +21,13 @@
 	<%= x.text_field :phone %>
 </p>
 
+<% for category in Category.all() %>
+<p>
+	<%= check_box_tag "restaurant[category_ids][]", category.id, @restaurant.categories.include?(category) %>
+	<%= category.name %>
+</p>
+<% end %>
+
 <p>
 	<%= x.submit %>
 </p>

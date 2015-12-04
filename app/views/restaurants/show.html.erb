@@ -18,6 +18,14 @@
   <%= @restaurant.phone %>
 </p>
 
+<ul>
+<% for category in @restaurant.categories %>
+<p>
+	<li><%= category.name %></li>
+</p>
+<% end %>
+</ul>
+<% if current_user %>
 <% if current_user.patron? %>
 	<%= form_for [@restaurant, @restaurant.reservations.build] do |x| %>
 	<p>
@@ -40,11 +48,15 @@
 
 <% if @restaurant.user == current_user %>
 <% for reservation in @restaurant.reservations %>
+<% if reservation.id %>
 	<%= reservation.email %><br>
 	<%= reservation.time %><br>
 	<%= reservation.message %><br>
+	<%= link_to 'Confirm', [@restaurant, reservation], {method: :delete} %><br><br>
+<% end %>
 <% end %>
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> | <%= link_to 'Destroy', @restaurant, {method: :delete, data: { confirm: 'Are you sure?' }} %>
+<% end %>
 <% end %>
 <br>
 <%= link_to 'Back', restaurants_path %>

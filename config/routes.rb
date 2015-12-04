@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registration: "users/registrations" }
 	resources :restaurants do
-    resources :reservations
+    resources :reservations, :path => 'reservations'
   end
 
 	root "restaurants#index"
