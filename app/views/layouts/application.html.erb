@@ -7,7 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<div class='container'>
 <%= yield %>
 <br>
 <% if current_user %>
@@ -15,7 +15,7 @@
 <% else %>
   <%= link_to('Login', new_user_session_path)  %>
 <% end %>
-
+</div>
 
 
 </body>
