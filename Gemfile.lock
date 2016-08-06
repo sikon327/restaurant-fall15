@@ -174,7 +174,7 @@ DEPENDENCIES
   byebug
   carrierwave
   coffee-rails (~> 4.1.0)
-  devise
+  devise (~> 3.5.2)
   jbuilder (~> 2.0)
   jquery-rails
   rails (= 4.2.4)
@@ -188,4 +188,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.10.6
+   1.11.2

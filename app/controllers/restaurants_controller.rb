@@ -11,11 +11,7 @@ class RestaurantsController < ApplicationController
 
 
 	def new
-		if current_user.owner?
-			@restaurant = current_user.restaurants.build
-		else
-			redirect_to restaurants_path, notice: 'You do not have permission.', status: 403
-		end
+		@restaurant = current_user.restaurants.build
 	end
 
 	def create
